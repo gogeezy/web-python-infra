@@ -1,0 +1,21 @@
+#cloud-config
+
+users:
+  - name: yc-user
+    groups: sudo, docker
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+
+package_update: true
+
+packages:
+  - docker.io
+  - docker-compose-v2
+  - git
+  - curl
+
+runcmd:
+  - systemctl enable docker
+  - systemctl start docker
